@@ -6,9 +6,15 @@
 	padding: 0;
 }
 
-html,
 body {
-	height: 100%;
+	height: auto;
+	margin-top: 3rem;
+	margin-bottom: 6rem;
+	font-family: "Yanone Kaffeesatz", sans-serif;
+	background-image: url("rickandmorty.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 html {
@@ -25,9 +31,23 @@ button {
 	font-family: inherit;
 }
 
+input,
 button {
 	border: none;
 	cursor: pointer;
+}
+
+::placeholder {
+	color: aliceblue;
+	opacity: 0.75;
+}
+
+:-ms-input-placeholder {
+	color: aliceblue;
+}
+
+::-ms-input-placeholder {
+	color: aliceblue;
 }
 
 .main-container {
@@ -40,11 +60,115 @@ button {
 }
 
 .main-container h1 {
-	font-size: 2rem;
+	font-size: 3rem;
+	color: aliceblue;
+	text-shadow: 0px 0px 9px rgba(0, 2, 126, 1);
 }
 
 .box {
-	width: 40%;
-	min-height: 250px;
-	border: 1px solid black;
+	width: 75%;
+	min-height: 325px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 30px;
+	-webkit-backdrop-filter: blur(50px);
+	backdrop-filter: blur(50px);
+	padding: 1rem;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	margin: 0.5rem 0;
+	height: 100px;
+}
+
+.top-desc {
+	font-size: 2.5rem;
+	margin: 1.25rem;
+	font-weight: bold;
+	display: flex;
+	flex-direction: row;
+}
+
+.chart-up {
+	font-size: 2rem;
+	width: 100%;
+	height: 100%;
+	font-weight: normal;
+}
+
+.text-input1 {
+	width: 75%;
+	font-size: 1.75rem;
+	border: 2px solid green;
+	padding: 0.25rem;
+	background-color: transparent;
+}
+
+.submit-input1 {
+	font-size: 1.75rem;
+	padding: 0.75rem 2rem;
+	background-color: green;
+	color: greenyellow;
+}
+
+.text-input2 {
+	width: 75%;
+	font-size: 1.75rem;
+	border: 2px solid darkred;
+	padding: 0.25rem;
+	background-color: transparent;
+}
+
+.submit-input2 {
+	font-size: 1.75rem;
+	padding: 0.75rem 2rem;
+	background-color: darkred;
+	color: rgb(255, 255, 255);
+}
+
+.test {
+	margin-left: 2rem;
+	margin-top: 0.5rem;
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: row;
+	list-style: square;
+	line-height: 28px;
+}
+
+span {
+	margin-left: auto;
+	margin-right: 1rem;
+}
+
+button {
+	margin: 0 0.5rem;
+	font-size: 1.5rem;
+	padding: 0.75rem;
+}
+
+.edit {
+	background-color: darkcyan;
+	color: aliceblue;
+}
+
+.delete {
+	background-color: darkred;
+	color: aliceblue;
+}
+
+hr {
+	margin: 1.5rem 0;
+	border: 2px solid darkblue;
+	border-radius: 2px;
+}
+
+.bottom-desc {
+	font-size: 2rem;
+	margin-top: auto;
+	padding: 1rem;
 }

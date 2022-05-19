@@ -4,35 +4,86 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Domowy budżet</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="style.css" />
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+		<script
+			src="https://kit.fontawesome.com/43c5022086.js"
+			crossorigin="anonymous"
+		></script>
 	</head>
 	<body>
 		<main>
 			<div class="main-container">
 				<img src="" alt="" />
-				<h1>Możesz</h1>
+				<h1>Możesz jeszcze wydać:</h1>
 				<div class="box">
-					<p>PRZYCHODY</p>
+					<p class="top-desc">
+						PRZYCHODY<i class="fa-regular fa-chart-line-up chart-up"></i>
+					</p>
 					<form>
-						<input type="text" placeholder="Rodzaj przychodu" />
-						<input type="number" placeholder="Kwota" />
-						<input type="submit" />
+						<input
+							type="text"
+							placeholder="Rodzaj przychodu"
+							class="text-input1"
+						/>
+						<input type="number" placeholder="Kwota" class="text-input1" />
+						<input type="submit" class="submit-input1" />
 					</form>
 					<hr />
-					<ul></ul>
-					<p>Suma</p>
+					<ul id="ul+">
+						<li class="test">
+							aaa<span
+								><button class="edit">Edytuj</button
+								><button class="delete">Usuń</button></span
+							>
+						</li>
+
+						<li class="test">
+							aaa<span
+								><button class="edit">Edytuj</button
+								><button class="delete">Usuń</button></span
+							>
+						</li>
+						<li class="test">
+							aaa<span
+								><button class="edit">Edytuj</button
+								><button class="delete">Usuń</button></span
+							>
+						</li>
+						<li class="test">
+							aaa<span
+								><button class="edit">Edytuj</button
+								><button class="delete">Usuń</button></span
+							>
+						</li>
+					</ul>
+					<hr />
+					<p class="bottom-desc">Suma przychodów:</p>
 				</div>
 				<div class="box">
-					<p>WYDATKI</p>
+					<p class="top-desc">
+						WYDATKI<i class="fa-regular fa-chart-line-down"></i>
+					</p>
 					<form>
-						<input type="text" placeholder="Rodzaj przychodu" />
-						<input type="number" placeholder="Kwota" />
-						<input type="submit" />
+						<input
+							type="text"
+							placeholder="Rodzaj przychodu"
+							class="text-input2"
+						/>
+						<input type="number" placeholder="Kwota" class="text-input2" />
+						<input type="submit" class="submit-input2" />
 					</form>
 					<hr />
-					<ul></ul>
-					<p>Suma</p>
+					<ul id="ul-"></ul>
+					<hr />
+					<p class="bottom-desc">Suma wydatków:</p>
 				</div>
 			</div>
 		</main>
