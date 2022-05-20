@@ -12,80 +12,71 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="style.css" />
-		<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-		<script
-			src="https://kit.fontawesome.com/43c5022086.js"
-			crossorigin="anonymous"
-		></script>
+		<link rel="shortcut icon" href="rick.png" type="image/x-icon" />
 	</head>
 	<body>
 		<main>
 			<div class="main-container">
 				<img src="" alt="" />
-				<h1>Możesz jeszcze wydać:</h1>
-				<div class="box">
-					<p class="top-desc">
-						PRZYCHODY<i class="fa-regular fa-chart-line-up chart-up"></i>
-					</p>
-					<form>
-						<input
-							type="text"
-							placeholder="Rodzaj przychodu"
-							class="text-input1"
-						/>
-						<input type="number" placeholder="Kwota" class="text-input1" />
-						<input type="submit" class="submit-input1" />
-					</form>
-					<hr />
-					<ul id="ul+">
-						<li class="test">
-							aaa<span
-								><button class="edit">Edytuj</button
-								><button class="delete">Usuń</button></span
-							>
-						</li>
-
-						<li class="test">
-							aaa<span
-								><button class="edit">Edytuj</button
-								><button class="delete">Usuń</button></span
-							>
-						</li>
-						<li class="test">
-							aaa<span
-								><button class="edit">Edytuj</button
-								><button class="delete">Usuń</button></span
-							>
-						</li>
-						<li class="test">
-							aaa<span
-								><button class="edit">Edytuj</button
-								><button class="delete">Usuń</button></span
-							>
-						</li>
-					</ul>
-					<hr />
-					<p class="bottom-desc">Suma przychodów:</p>
-				</div>
-				<div class="box">
-					<p class="top-desc">
-						WYDATKI<i class="fa-regular fa-chart-line-down"></i>
-					</p>
-					<form>
-						<input
-							type="text"
-							placeholder="Rodzaj przychodu"
-							class="text-input2"
-						/>
-						<input type="number" placeholder="Kwota" class="text-input2" />
-						<input type="submit" class="submit-input2" />
-					</form>
-					<hr />
-					<ul id="ul-"></ul>
-					<hr />
-					<p class="bottom-desc">Suma wydatków:</p>
+				<h1 id="#amount-to-spend">Możesz jeszcze wydać:</h1>
+				<div class="box-container">
+					<div class="box">
+						<p class="top-desc">
+							PRZYCHODY</i>
+						</p>
+						<form>
+							<input
+								type="text"
+								placeholder="Nazwa przychodu"
+								id="gain-name"
+								class="text-input1"
+								required
+							/>
+							<input type="number" placeholder="Kwota" class="text-input1" id="gain-amount" required />
+							<input type="submit" class="submit-input1" id="gain-btn" />
+						</form>
+						<hr />
+						<ul id="ul-plus">
+							<li class="list">
+								aaa<span
+									><button class="edit">Edytuj</button
+									><button class="delete">Usuń</button></span
+								>
+							</li>
+						</ul>
+						<hr />
+						<p class="bottom-desc" id="gain-sum">Suma przychodów:</p>
+					</div>
+					<div class="box">
+						<p class="top-desc">
+							WYDATKI</i>
+						</p>
+						<form>
+							<input
+								type="text"
+								placeholder="Nazwa wydatku"
+								class="text-input2"
+								id="lost-name"
+								required
+							/>
+							<input type="number" placeholder="Kwota" class="text-input2" id="lost-amount" required />
+							<input type="submit" class="submit-input2" id="lost-btn" />
+						</form>
+						<hr />
+						<ul id="ul-minus">
+							<li class="list">
+								aaa<span
+									><button class="edit">Edytuj</button
+									><button class="delete">Usuń</button></span
+								>
+							</li>
+						</ul>
+						<hr />
+						<p class="bottom-desc" id="lost-sum">Suma wydatków:</p>
+					</div>
 				</div>
 			</div>
 		</main>
+		<script src="script.js"></script>
 	</body>
 </html>

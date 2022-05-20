@@ -7,14 +7,9 @@
 }
 
 body {
-	height: auto;
-	margin-top: 3rem;
-	margin-bottom: 6rem;
+	height: 100%;
 	font-family: "Yanone Kaffeesatz", sans-serif;
-	background-image: url("rickandmorty.gif");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+	transition: 0.4s ease-in-out;
 }
 
 html {
@@ -28,13 +23,9 @@ a {
 
 input,
 button {
-	font-family: inherit;
-}
-
-input,
-button {
 	border: none;
 	cursor: pointer;
+	font-family: inherit;
 }
 
 ::placeholder {
@@ -52,11 +43,16 @@ button {
 
 .main-container {
 	width: 100%;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 3rem;
+	background-image: url("rickandmorty.gif");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .main-container h1 {
@@ -65,14 +61,24 @@ button {
 	text-shadow: 0px 0px 9px rgba(0, 2, 126, 1);
 }
 
+.box-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 3rem;
+	width: 100%;
+}
+
 .box {
 	width: 75%;
+	max-width: 500px;
 	min-height: 325px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 30px;
-	-webkit-backdrop-filter: blur(50px);
-	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(40px);
+	backdrop-filter: blur(40px);
 	padding: 1rem;
 }
 
@@ -80,9 +86,9 @@ form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
-	margin: 0.5rem 0;
-	height: 100px;
+	justify-content: space-between;
+	padding: 1rem 0;
+	height: 150px;
 }
 
 .top-desc {
@@ -93,18 +99,11 @@ form {
 	flex-direction: row;
 }
 
-.chart-up {
-	font-size: 2rem;
-	width: 100%;
-	height: 100%;
-	font-weight: normal;
-}
-
 .text-input1 {
 	width: 75%;
 	font-size: 1.75rem;
-	border: 2px solid green;
-	padding: 0.25rem;
+	border-bottom: 2px solid green;
+	padding: 0.5rem;
 	background-color: transparent;
 }
 
@@ -112,14 +111,14 @@ form {
 	font-size: 1.75rem;
 	padding: 0.75rem 2rem;
 	background-color: green;
-	color: greenyellow;
+	color: aliceblue;
 }
 
 .text-input2 {
 	width: 75%;
 	font-size: 1.75rem;
-	border: 2px solid darkred;
-	padding: 0.25rem;
+	border-bottom: 2px solid darkred;
+	padding: 0.5rem;
 	background-color: transparent;
 }
 
@@ -130,14 +129,12 @@ form {
 	color: rgb(255, 255, 255);
 }
 
-.test {
+.list {
 	margin-left: 2rem;
-	margin-top: 0.5rem;
 	font-size: 1.5rem;
 	display: flex;
 	flex-direction: row;
-	list-style: square;
-	line-height: 28px;
+	align-items: center;
 }
 
 span {
@@ -146,29 +143,99 @@ span {
 }
 
 button {
-	margin: 0 0.5rem;
 	font-size: 1.5rem;
-	padding: 0.75rem;
+	padding: 1rem 2rem;
 }
 
 .edit {
 	background-color: darkcyan;
 	color: aliceblue;
+	margin: 0.25rem;
 }
 
 .delete {
 	background-color: darkred;
 	color: aliceblue;
+	margin: 0.25rem;
 }
 
 hr {
-	margin: 1.5rem 0;
-	border: 2px solid darkblue;
+	margin: 1.5rem auto;
+	border: 1px solid darkblue;
 	border-radius: 2px;
+	width: 95%;
 }
 
 .bottom-desc {
 	font-size: 2rem;
 	margin-top: auto;
 	padding: 1rem;
+}
+
+@media screen and (min-width: 996px) {
+	.main-container h1 {
+		font-size: 6rem;
+	}
+
+	.box-container {
+		flex-direction: row;
+		align-items: baseline;
+		gap: 6rem;
+	}
+
+	.top-desc {
+		font-size: 3.25rem;
+		margin: 1.75rem;
+	}
+
+	.text-input1,
+	.text-input2 {
+		font-size: 2.25rem;
+		padding: 0.5rem;
+	}
+
+	.submit-input1,
+	.submit-input2 {
+		font-size: 2.25rem;
+		padding: 1rem 2.5rem;
+		transition: 0.3s ease-in-out;
+	}
+
+	.submit-input1:hover {
+		background-color: darkgreen;
+	}
+
+	.submit-input2:hover {
+		background-color: rgb(90, 0, 0);
+	}
+
+	.list {
+		margin-left: 2rem;
+		margin-top: 0.5rem;
+		font-size: 2.25rem;
+	}
+
+	button {
+		margin: 0 0.5rem;
+		font-size: 1.5rem;
+		padding: 1rem 2rem;
+	}
+
+	.edit,
+	.delete {
+		font-size: 2rem;
+		transition: 0.3s ease-in-out;
+	}
+
+	.edit:hover {
+		background-color: rgb(0, 90, 90);
+	}
+
+	.delete:hover {
+		background-color: rgb(90, 0, 0);
+	}
+
+	.bottom-desc {
+		font-size: 2.75rem;
+	}
 }
