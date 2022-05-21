@@ -10,28 +10,50 @@ const gains = [];
 gainBtn.addEventListener("click", (e) => {
 	e.preventDefault();
 	if (gainName.value !== "" && gainAmount.value > 0) {
-		// let li = document.createElement("li");
-		// li.classList.add("list");
 		console.log("wartość jest tu i tu");
+
+		// Filter function - add only new element from table
+		function liFilter(id) {
+			return id++;
+		}
+		let filterLi = gains.filter(liFilter);
+
+		// Push - add new element
+		filterLi.push({
+			name: gainName.value,
+			amount: gainAmount.value,
+		});
+		console.log(filterLi); //aktualnie najnowszy wpis
+
 		gains.push({
-			nazwa: gainName.value,
-			kwota: gainAmount.value,
+			name: gainName.value,
+			amount: gainAmount.value,
 		});
 		console.log(gains);
 
-		gains.forEach((el) => {
+		filterLi.forEach((el) => {
+			// Make new li and add to ul with value
 			const list = document.createElement("li");
 			list.classList.add("list");
 			ulPlus.appendChild(list);
-			list.innerHTML = `<li>${el.nazwa} - ${el.kwota} zł</li>`;
-
+			list.innerHTML = `<li>${el.name} - ${el.amount} zł</li>`;
+			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
 			list.appendChild(span);
 			const editBtn = document.createElement("button");
+			editBtn.innerText = "Edytuj";
 			editBtn.classList.add("edit");
+			span.appendChild(editBtn);
+
 			const deleteBtn = document.createElement("button");
+			deleteBtn.innerText = "Usuń";
 			deleteBtn.classList.add("delete");
-			span.appendChild(editBtn, deleteBtn);
+			span.appendChild(deleteBtn);
+
+			let test = gainAmount.reduce(function (a, b) {
+				return a + b;
+			});
+			console.log(test);
 		});
 	} else {
 		console.log("Błąd nazwy lub wartości");
