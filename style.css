@@ -49,7 +49,7 @@ button {
 	align-items: center;
 	justify-content: center;
 	gap: 3rem;
-	background-image: url("rickandmorty.gif");
+	background-image: url("rickandmortyimg.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;

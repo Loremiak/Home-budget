@@ -1,11 +1,11 @@
 const leftAmount = document.querySelector("#amount-to-spend");
 
-const ulPlus = document.querySelector("#ul-plus");
+const gainsDOM = document.querySelector("#ul-plus");
 const gainName = document.querySelector("#gain-name");
 const gainAmount = document.querySelector("#gain-amount");
 const gainBtn = document.querySelector("#gain-btn");
 const gainSum = document.querySelector("#gain-sum");
-const gains = [];
+let gains = [];
 
 gainBtn.addEventListener("click", (e) => {
 	e.preventDefault();
@@ -13,38 +13,41 @@ gainBtn.addEventListener("click", (e) => {
 		console.log("wartość jest tu i tu");
 
 		// Filter function - add only new element from table
-		function liFilter(id) {
-			return id++;
-		}
-		let filterLi = gains.filter(liFilter);
+		// function liFilter(id) {
+		// 	return id++;
+		// }
+		// let filterLi = gains.filter(liFilter);
 
 		// Push - add new element
-		filterLi.push({
-			name: gainName.value,
-			amount: gainAmount.value,
-		});
-		console.log(filterLi); //aktualnie najnowszy wpis
+		// filterLi.push({
+		// 	name: gainName.value,
+		// 	amount: gainAmount.value,
+		// });
+		// console.log(filterLi); //aktualnie najnowszy wpis
 
-		gains.push({
+		const newGain = {
+			id: uuid.v4(),
 			name: gainName.value,
 			amount: gainAmount.value,
-		});
-		console.log(gains); //wszystkie wpisy
+		};
+		gains.push(newGain);
+		sumGains();
+		console.log(gains, newGain);
 
 		// let filterAmount = gains.filter((el) => {
 		// 	return gainAmount.value;
 		// });
 		// console.log(filterAmount);
-
-		filterLi.forEach((el) => {
+		gains.innerHTML = "";
+		gains.forEach(({ id, name, amount }) => {
 			// Make new li and add to ul with value
-			const list = document.createElement("li");
-			list.classList.add("list");
-			ulPlus.appendChild(list);
-			list.innerHTML = `<li>${el.name} - ${el.amount} zł</li>`;
+			const li = document.createElement("li");
+			li.classList.add("list");
+			gainsDOM.appendChild(li);
+			li.innerHTML = `<span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł`;
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
-			ulPlus.appendChild(span);
+			li.appendChild(span);
 
 			const editBtn = document.createElement("button");
 			editBtn.innerText = "Edytuj";
@@ -52,21 +55,27 @@ gainBtn.addEventListener("click", (e) => {
 			span.appendChild(editBtn);
 
 			editBtn.addEventListener("click", () => {
-				list.contentEditable = true;
-				list.style.backgroundColor = "#F5F5F5";
+				li.contentEditable = true;
+				li.style.backgroundColor = "#F5F5F5";
 				span.removeChild(deleteBtn);
-				span.appendChild(endEditBtn);
-				endEditBtn.classList.add("edit");
-			});
-
-			let endEditBtn = document.createElement("button");
-			endEditBtn.innerText = "Zakończ";
-
-			endEditBtn.addEventListener("click", () => {
-				list.contentEditable = false;
-				span.removeChild(endEditBtn);
-				span.appendChild(deleteBtn);
-				list.style.backgroundColor = "transparent";
+				let confirmEditBtn = document.createElement("button");
+				confirmEditBtn.innerText = "Zakończ";
+				confirmEditBtn.classList.add("edit");
+				confirmEditBtn.addEventListener("click", () => {
+					li.contentEditable = false;
+					span.removeChild(confirmEditBtn);
+					span.appendChild(deleteBtn);
+					const newName = li.dataset.name;
+					const newAmount = li.dataset.amount;
+					li.style.backgroundColor = "transparent";
+					gains = gains.map((gain) =>
+						gain.id === id
+							? { ...gain, name: newName, amount: newAmount }
+							: gain
+					);
+					sumGains();
+				});
+				span.appendChild(confirmEditBtn);
 			});
 
 			const deleteBtn = document.createElement("button");
@@ -74,25 +83,36 @@ gainBtn.addEventListener("click", (e) => {
 			deleteBtn.classList.add("delete");
 			span.appendChild(deleteBtn);
 			deleteBtn.addEventListener("click", () => {
-				ulPlus.removeChild(list);
-				ulPlus.removeChild(span);
+				gainsDOM.removeChild(li);
+				gains = gains.filter((gain) => gain.id !== id);
+				sumGains();
 			});
 
-			let gainsAmount = el.amount;
-			console.log(gainsAmount);
-
-			let sum = 0;
-			for (let i = 0; i < gains.length; i++) {
-				console.log("Pętla for:");
-				sum = sum + el.amount[i];
-			}
-			console.log(sum);
+			// let sum = 0;
+			// for (let i = 0; i < gains.length; i++) {
+			// 	console.log("Pętla for:");
+			// 	sum = sum + el.amount[i];
+			// }
+			// console.log(sum);
 		});
+
+		let gainsAmount = gainAmount.value;
+		console.log(gainsAmount);
+
+		// const initValue = 0;
+		// const sumValue = gainsAmount.reduce((previousValue, currentValue) => {
+		// 	previousValue + currentValue, initValue;
+		// });
+		// console.log(sumValue);
 	} else {
 		console.log("Błąd nazwy lub wartości");
 	}
 	e.preventDefault();
 });
+
+function sumGains() {
+	return gains.reduce((acc, { amount }) => acc + amount, 0);
+}
 
 const ulMinus = document.querySelector("#ul-minus");
 const lostName = document.querySelector("#lost-name");
