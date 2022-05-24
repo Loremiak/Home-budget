@@ -134,18 +134,16 @@ form {
 ul {
 	display: flex;
 	flex-flow: row wrap;
-	align-items: center;
-	margin-left: 1.5rem;
 }
 
 .list {
+	margin: 0 auto;
 	font-size: 1.5rem;
-	width: 35%;
-}
-
-span {
-	margin-left: auto;
-	margin-right: 1rem;
+	width: 93%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 }
 
 button {
@@ -218,10 +216,8 @@ hr {
 	}
 
 	.list {
-		margin-left: 2rem;
 		margin-top: 0.5rem;
 		font-size: 2.25rem;
-		width: 50%;
 	}
 
 	button {

@@ -4,47 +4,29 @@ const gainsDOM = document.querySelector("#ul-plus");
 const gainName = document.querySelector("#gain-name");
 const gainAmount = document.querySelector("#gain-amount");
 const gainBtn = document.querySelector("#gain-btn");
-const gainSum = document.querySelector("#gain-sum");
+const gainSumDOM = document.querySelector("#gain-sum");
 let gains = [];
 
 gainBtn.addEventListener("click", (e) => {
 	e.preventDefault();
 	if (gainName.value !== "" && gainAmount.value > 0) {
-		console.log("wartość jest tu i tu");
-
-		// Filter function - add only new element from table
-		// function liFilter(id) {
-		// 	return id++;
-		// }
-		// let filterLi = gains.filter(liFilter);
-
-		// Push - add new element
-		// filterLi.push({
-		// 	name: gainName.value,
-		// 	amount: gainAmount.value,
-		// });
-		// console.log(filterLi); //aktualnie najnowszy wpis
-
 		const newGain = {
 			id: uuid.v4(),
 			name: gainName.value,
-			amount: gainAmount.value,
+			amount: Number(gainAmount.value),
 		};
 		gains.push(newGain);
 		sumGains();
 		console.log(gains, newGain);
 
-		// let filterAmount = gains.filter((el) => {
-		// 	return gainAmount.value;
-		// });
-		// console.log(filterAmount);
-		gains.innerHTML = "";
+		gainsDOM.innerHTML = "";
 		gains.forEach(({ id, name, amount }) => {
 			// Make new li and add to ul with value
 			const li = document.createElement("li");
 			li.classList.add("list");
 			gainsDOM.appendChild(li);
-			li.innerHTML = `<span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł`;
+			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount} zł</span></span>`;
+
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
 			li.appendChild(span);
@@ -54,65 +36,65 @@ gainBtn.addEventListener("click", (e) => {
 			editBtn.classList.add("edit");
 			span.appendChild(editBtn);
 
-			editBtn.addEventListener("click", () => {
-				li.contentEditable = true;
-				li.style.backgroundColor = "#F5F5F5";
-				span.removeChild(deleteBtn);
-				let confirmEditBtn = document.createElement("button");
-				confirmEditBtn.innerText = "Zakończ";
-				confirmEditBtn.classList.add("edit");
-				confirmEditBtn.addEventListener("click", () => {
-					li.contentEditable = false;
-					span.removeChild(confirmEditBtn);
-					span.appendChild(deleteBtn);
-					const newName = li.dataset.name;
-					const newAmount = li.dataset.amount;
-					li.style.backgroundColor = "transparent";
-					gains = gains.map((gain) =>
-						gain.id === id
-							? { ...gain, name: newName, amount: newAmount }
-							: gain
-					);
-					sumGains();
-				});
-				span.appendChild(confirmEditBtn);
-			});
-
 			const deleteBtn = document.createElement("button");
 			deleteBtn.innerText = "Usuń";
 			deleteBtn.classList.add("delete");
 			span.appendChild(deleteBtn);
+
 			deleteBtn.addEventListener("click", () => {
 				gainsDOM.removeChild(li);
 				gains = gains.filter((gain) => gain.id !== id);
 				sumGains();
 			});
 
-			// let sum = 0;
-			// for (let i = 0; i < gains.length; i++) {
-			// 	console.log("Pętla for:");
-			// 	sum = sum + el.amount[i];
-			// }
-			// console.log(sum);
+			editBtn.addEventListener("click", () => {
+				let editInput = document.querySelector(`span[data-id="${id}"]`);
+				editInput.contentEditable = true;
+				editInput.style.backgroundColor = "#F5F5F5";
+				span.removeChild(deleteBtn);
+				span.removeChild(editBtn);
+
+				let confirmEditBtn = document.createElement("button");
+				confirmEditBtn.innerText = "Zapisz";
+				confirmEditBtn.classList.add("edit");
+
+				confirmEditBtn.addEventListener("click", () => {
+					editInput.contentEditable = false;
+					span.removeChild(confirmEditBtn);
+					span.appendChild(editBtn);
+					span.appendChild(deleteBtn);
+					const newName = li.dataset.name;
+					const newAmount = Number(li.dataset.amount);
+					editInput.style.backgroundColor = "transparent";
+
+					gains = gains.map((gain) =>
+						gain.id === id
+							? { ...gain, name: newName, amount: newAmount }
+							: gain
+					);
+					sum(gains, gainsDOM);
+				});
+				span.appendChild(confirmEditBtn);
+			});
 		});
 
 		let gainsAmount = gainAmount.value;
 		console.log(gainsAmount);
-
-		// const initValue = 0;
-		// const sumValue = gainsAmount.reduce((previousValue, currentValue) => {
-		// 	previousValue + currentValue, initValue;
-		// });
-		// console.log(sumValue);
 	} else {
 		console.log("Błąd nazwy lub wartości");
 	}
-	e.preventDefault();
 });
 
 function sumGains() {
-	return gains.reduce((acc, { amount }) => acc + amount, 0);
+	const total = gains.reduce((acc, { amount }) => acc + amount, 0);
+	gainSumDOM.innerHTML = total + " zł";
 }
+
+// sum(gains, gainsDOM);
+// sum(expenses, expensesDOM);
+// function sum(arr, arrDOM) {
+// 	arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
+// }
 
 const ulMinus = document.querySelector("#ul-minus");
 const lostName = document.querySelector("#lost-name");
@@ -156,6 +138,7 @@ lostBtn.addEventListener("click", (e) => {
 			list.classList.add("list");
 			ulMinus.appendChild(list);
 			list.innerHTML = `<li>${el.name} - ${el.amount} zł</li>`;
+
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
 			ulMinus.appendChild(span);
@@ -187,6 +170,7 @@ lostBtn.addEventListener("click", (e) => {
 			deleteBtn.innerText = "Usuń";
 			deleteBtn.classList.add("delete");
 			span.appendChild(deleteBtn);
+
 			deleteBtn.addEventListener("click", () => {
 				ulMinus.removeChild(list);
 				ulMinus.removeChild(span);
@@ -205,6 +189,4 @@ lostBtn.addEventListener("click", (e) => {
 	} else {
 		console.log("Błąd nazwy lub wartości");
 	}
-
-	e.preventDefault();
 });
