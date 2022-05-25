@@ -1,6 +1,6 @@
 const leftAmount = document.querySelector("#amount-to-spend");
 
-const gainsDOM = document.querySelector("#ul-plus");
+const gainsDOM = document.querySelector("#gains-ul");
 const gainName = document.querySelector("#gain-name");
 const gainAmount = document.querySelector("#gain-amount");
 const gainBtn = document.querySelector("#gain-btn");
@@ -25,7 +25,7 @@ gainBtn.addEventListener("click", (e) => {
 			const li = document.createElement("li");
 			li.classList.add("list");
 			gainsDOM.appendChild(li);
-			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount} zł</span></span>`;
+			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span></span>`;
 
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
@@ -67,6 +67,7 @@ gainBtn.addEventListener("click", (e) => {
 					const newAmount = Number(li.dataset.amount);
 					editInput.style.backgroundColor = "transparent";
 
+					console.log(gains);
 					gains = gains.map((gain) =>
 						gain.id === id
 							? { ...gain, name: newName, amount: newAmount }
@@ -90,58 +91,44 @@ function sumGains() {
 	gainSumDOM.innerHTML = total + " zł";
 }
 
-// sum(gains, gainsDOM);
+sum(gains, gainsDOM);
 // sum(expenses, expensesDOM);
-// function sum(arr, arrDOM) {
-// 	arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
-// }
+function sum(arr, arrDOM) {
+	arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount);
+}
 
-const ulMinus = document.querySelector("#ul-minus");
-const lostName = document.querySelector("#lost-name");
-const lostAmount = document.querySelector("#lost-amount");
-const lostBtn = document.querySelector("#lost-btn");
-const lostSum = document.querySelector("#lost-sum");
-const losts = [];
+const expensesDOM = document.querySelector("#expenses-ul");
+const expenseName = document.querySelector("#expense-name");
+const expenseAmount = document.querySelector("#expense-amount");
+const expenseBtn = document.querySelector("#expense-btn");
+const expenseSumDOM = document.querySelector("#expense-sum");
+const expenses = [];
 
-lostBtn.addEventListener("click", (e) => {
+expenseBtn.addEventListener("click", (e) => {
 	e.preventDefault();
-	if (lostName.value !== "" && lostAmount.value > 0) {
-		console.log("wartość jest tu i tu");
-
+	if (expenseName.value !== "" && expenseAmount.value > 0) {
 		// Filter function - add only new element from table
-		function liFilter(id) {
-			return id++;
-		}
-		let filterLi = losts.filter(liFilter);
+		const newExpense = {
+			id: uuid.v4(),
+			name: expenseName.value,
+			amount: Number(expenseAmount.value),
+		};
+		expenses.push(newGain);
+		sumExpenses();
+		console.log(expenses, newExpense);
 
-		// Push - add new element
-		filterLi.push({
-			name: lostName.value,
-			amount: lostAmount.value,
-		});
-		console.log(filterLi); //aktualnie najnowszy wpis
+		expensesDOM.innerHTML = "";
 
-		losts.push({
-			name: lostName.value,
-			amount: lostAmount.value,
-		});
-		console.log(losts); //wszystkie wpisy
-
-		// let filterAmount = losts.filter((el) => {
-		// 	return lostAmount.value;
-		// });
-		// console.log(filterAmount);
-
-		filterLi.forEach((el) => {
+		expenses.forEach(({ id, name, amount }) => {
 			// Make new li and add to ul with value
-			const list = document.createElement("li");
-			list.classList.add("list");
-			ulMinus.appendChild(list);
-			list.innerHTML = `<li>${el.name} - ${el.amount} zł</li>`;
+			const li = document.createElement("li");
+			li.classList.add("list");
+			expensesDOM.appendChild(li);
+			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span></span>`;
 
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
-			ulMinus.appendChild(span);
+			expensesDOM.appendChild(span);
 
 			const editBtn = document.createElement("button");
 			editBtn.innerText = "Edytuj";
