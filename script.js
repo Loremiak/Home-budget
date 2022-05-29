@@ -25,7 +25,7 @@ gainBtn.addEventListener("click", (e) => {
 			const li = document.createElement("li");
 			li.classList.add("list");
 			gainsDOM.appendChild(li);
-			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span></span>`;
+			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł</span>`;
 
 			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
@@ -48,9 +48,14 @@ gainBtn.addEventListener("click", (e) => {
 			});
 
 			editBtn.addEventListener("click", () => {
-				let editInput = document.querySelector(`span[data-id="${id}"]`);
-				editInput.contentEditable = true;
-				editInput.style.backgroundColor = "#F5F5F5";
+				let editName = document.querySelector(`span[data-name="${name}"]`);
+				let editAmount = document.querySelector(
+					`span[data-amount="${amount}"]`
+				);
+				editName.contentEditable = true;
+				editAmount.contentEditable = true;
+				editName.style.backgroundColor = "#F5F5F5";
+				editAmount.style.backgroundColor = "#F5F5F5";
 				span.removeChild(deleteBtn);
 				span.removeChild(editBtn);
 
@@ -59,22 +64,29 @@ gainBtn.addEventListener("click", (e) => {
 				confirmEditBtn.classList.add("edit");
 
 				confirmEditBtn.addEventListener("click", () => {
-					editInput.contentEditable = false;
+					editName.contentEditable = false;
+					editAmount.contentEditable = false;
+					editName.style.backgroundColor = "transparent";
+					editAmount.style.backgroundColor = "transparent";
 					span.removeChild(confirmEditBtn);
 					span.appendChild(editBtn);
 					span.appendChild(deleteBtn);
-					const newName = li.dataset.name;
-					const newAmount = Number(li.dataset.amount);
-					editInput.style.backgroundColor = "transparent";
-
+					console.log(editName.textContent);
+					const newName = editName.textContent;
+					const newAmount = Number(editAmount.textContent);
+					console.log(newName);
+					console.log(newAmount);
+					console.log(id);
 					console.log(gains);
 					gains = gains.map((gain) =>
 						gain.id === id
 							? { ...gain, name: newName, amount: newAmount }
 							: gain
 					);
-					sum(gains, gainsDOM);
+					console.log(gains);
+					sum(gains, li);
 				});
+				console.log(gainsDOM);
 				span.appendChild(confirmEditBtn);
 			});
 		});
@@ -91,10 +103,14 @@ function sumGains() {
 	gainSumDOM.innerHTML = total + " zł";
 }
 
-sum(gains, gainsDOM);
+// sum(gains, gainsDOM);
 // sum(expenses, expensesDOM);
 function sum(arr, arrDOM) {
-	arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount);
+	console.log(arrDOM);
+	// arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
+	let amount = arr.reduce((acc, { amount }) => acc + amount, 0);
+	let name = arr.map(({ name }) => name);
+	arrDOM.innerHTML = `${name} - ${amount} zł`;
 }
 
 const expensesDOM = document.querySelector("#expenses-ul");
