@@ -16,7 +16,7 @@ gainBtn.addEventListener("click", (e) => {
 			amount: Number(gainAmount.value),
 		};
 		gains.push(newGain);
-		sumGains();
+		sum(gains, gainSumDOM);
 		console.log(gains, newGain);
 
 		gainsDOM.innerHTML = "";
@@ -44,13 +44,15 @@ gainBtn.addEventListener("click", (e) => {
 			deleteBtn.addEventListener("click", () => {
 				gainsDOM.removeChild(li);
 				gains = gains.filter((gain) => gain.id !== id);
-				sumGains();
+				sum(gains, gainSumDOM);
 			});
 
 			editBtn.addEventListener("click", () => {
-				let editName = document.querySelector(`span[data-name="${name}"]`);
+				let editName = document.querySelector(
+					`span[data-id="${id}"] span[data-name="${name}"]`
+				);
 				let editAmount = document.querySelector(
-					`span[data-amount="${amount}"]`
+					`span[data-id="${id}"] span[data-amount="${amount}"]`
 				);
 				editName.contentEditable = true;
 				editAmount.contentEditable = true;
@@ -84,7 +86,7 @@ gainBtn.addEventListener("click", (e) => {
 							: gain
 					);
 					console.log(gains);
-					sum(gains, li);
+					sum(gains, gainSumDOM);
 				});
 				console.log(gainsDOM);
 				span.appendChild(confirmEditBtn);
@@ -98,19 +100,19 @@ gainBtn.addEventListener("click", (e) => {
 	}
 });
 
-function sumGains() {
-	const total = gains.reduce((acc, { amount }) => acc + amount, 0);
-	gainSumDOM.innerHTML = total + " zł";
-}
+// function sumGains() {
+// 	const total = gains.reduce((acc, { amount }) => acc + amount, 0);
+// 	gainSumDOM.innerHTML = total + " zł";
+// }
 
 // sum(gains, gainsDOM);
 // sum(expenses, expensesDOM);
-function sum(arr, arrDOM) {
-	console.log(arrDOM);
-	// arrDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
-	let amount = arr.reduce((acc, { amount }) => acc + amount, 0);
-	let name = arr.map(({ name }) => name);
-	arrDOM.innerHTML = `${name} - ${amount} zł`;
+function sum(arr, sumDOM) {
+	console.log(sumDOM);
+	sumDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
+	// let amount = arr.reduce((acc, { amount }) => acc + amount, 0);
+	// let name = arr.map(({ name }) => name);
+	// arrDOM.innerHTML = `${name} - ${amount} zł`;
 }
 
 const expensesDOM = document.querySelector("#expenses-ul");
