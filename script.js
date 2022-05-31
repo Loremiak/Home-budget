@@ -3,6 +3,7 @@ const leftAmount = document.querySelector("#amount-to-spend");
 const gainsDOM = document.querySelector("#gains-ul");
 const gainName = document.querySelector("#gain-name");
 const gainAmount = document.querySelector("#gain-amount");
+const gainInputs = document.querySelectorAll("#gain-name, #gain-amount");
 const gainBtn = document.querySelector("#gain-btn");
 const gainSumDOM = document.querySelector("#gain-sum");
 let gains = [];
@@ -19,6 +20,10 @@ gainBtn.addEventListener("click", (e) => {
 		sum(gains, gainSumDOM);
 		console.log(gains, newGain);
 
+		// gainInputs.forEach((input) => {
+		// 	input.value = "";
+		// });
+
 		gainsDOM.innerHTML = "";
 		gains.forEach(({ id, name, amount }) => {
 			// Make new li and add to ul with value
@@ -27,7 +32,6 @@ gainBtn.addEventListener("click", (e) => {
 			gainsDOM.appendChild(li);
 			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł</span>`;
 
-			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
 			li.appendChild(span);
 
@@ -118,58 +122,40 @@ function sum(arr, sumDOM) {
 const expensesDOM = document.querySelector("#expenses-ul");
 const expenseName = document.querySelector("#expense-name");
 const expenseAmount = document.querySelector("#expense-amount");
+const expenseInputs = document.querySelectorAll(
+	"#expense-name, #expense-amount"
+);
 const expenseBtn = document.querySelector("#expense-btn");
 const expenseSumDOM = document.querySelector("#expense-sum");
-const expenses = [];
+let expenses = [];
 
 expenseBtn.addEventListener("click", (e) => {
 	e.preventDefault();
 	if (expenseName.value !== "" && expenseAmount.value > 0) {
-		// Filter function - add only new element from table
 		const newExpense = {
 			id: uuid.v4(),
 			name: expenseName.value,
 			amount: Number(expenseAmount.value),
 		};
-		expenses.push(newGain);
-		sumExpenses();
-		console.log(expenses, newExpense);
+		expenses.push(newExpense);
+		sum(expenses, expenseSumDOM);
+		console.log(expenses, expenseSumDOM);
 
 		expensesDOM.innerHTML = "";
 
 		expenses.forEach(({ id, name, amount }) => {
-			// Make new li and add to ul with value
 			const li = document.createElement("li");
 			li.classList.add("list");
 			expensesDOM.appendChild(li);
 			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span></span>`;
 
-			// Make span as a parent and 2 btn within every li (edit + delete)
 			const span = document.createElement("span");
-			expensesDOM.appendChild(span);
+			li.appendChild(span);
 
 			const editBtn = document.createElement("button");
 			editBtn.innerText = "Edytuj";
 			editBtn.classList.add("edit");
 			span.appendChild(editBtn);
-
-			editBtn.addEventListener("click", () => {
-				list.contentEditable = true;
-				list.style.backgroundColor = "#F5F5F5";
-				span.removeChild(deleteBtn);
-				span.appendChild(endEditBtn);
-				endEditBtn.classList.add("edit");
-			});
-
-			let endEditBtn = document.createElement("button");
-			endEditBtn.innerText = "Zakończ";
-
-			endEditBtn.addEventListener("click", () => {
-				list.contentEditable = false;
-				span.removeChild(endEditBtn);
-				span.appendChild(deleteBtn);
-				list.style.backgroundColor = "transparent";
-			});
 
 			const deleteBtn = document.createElement("button");
 			deleteBtn.innerText = "Usuń";
@@ -177,19 +163,58 @@ expenseBtn.addEventListener("click", (e) => {
 			span.appendChild(deleteBtn);
 
 			deleteBtn.addEventListener("click", () => {
-				ulMinus.removeChild(list);
-				ulMinus.removeChild(span);
+				expensesDOM.removeChild(li);
+				expenses = expenses.filter((expense) => expense.id !== id);
+				sum(expenses, expenseSumDOM);
 			});
 
-			let lostAmount = el.amount;
-			console.log(lostAmount);
+			editBtn.addEventListener("click", () => {
+				let editName = document.querySelector(
+					`span[data-id="${id}"] span[data-name="${name}"]`
+				);
+				let editAmount = document.querySelector(
+					`span[data-id="${id}"] span[data-amount="${amount}"]`
+				);
+				editName.contentEditable = true;
+				editAmount.contentEditable = true;
+				editName.style.backgroundColor = "#F5F5F5";
+				editAmount.style.backgroundColor = "#F5F5F5";
+				span.removeChild(deleteBtn);
+				span.removeChild(editBtn);
 
-			let sum = 0;
-			for (let i = 0; i < losts.length; i++) {
-				console.log("Pętla for:");
-				sum = sum + el.amount[i];
-			}
-			console.log(sum);
+				let confirmEditBtn = document.createElement("button");
+				confirmEditBtn.innerText = "Zapisz";
+				confirmEditBtn.classList.add("edit");
+
+				confirmEditBtn.addEventListener("click", () => {
+					editName.contentEditable = false;
+					editAmount.contentEditable = false;
+					editName.style.backgroundColor = "transparent";
+					editAmount.style.backgroundColor = "transparent";
+					span.removeChild(confirmEditBtn);
+					span.appendChild(editBtn);
+					span.appendChild(deleteBtn);
+					console.log(editName.textContent);
+					const newName = editName.textContent;
+					const newAmount = Number(editAmount.textContent);
+					console.log(newName);
+					console.log(newAmount);
+					console.log(id);
+					console.log(expenses);
+					expenses = expenses.map((expense) =>
+						expense.id === id
+							? { ...expense, name: newName, amount: newAmount }
+							: expense
+					);
+					console.log(expenses);
+					sum(expenses, expenseSumDOM);
+				});
+				console.log(expenseSumDOM);
+				span.appendChild(confirmEditBtn);
+			});
+
+			let expensesAmount = expenseAmount.value;
+			console.log(expensesAmount);
 		});
 	} else {
 		console.log("Błąd nazwy lub wartości");

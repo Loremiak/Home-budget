@@ -80,6 +80,7 @@ button {
 	-webkit-backdrop-filter: blur(20px);
 	backdrop-filter: blur(20px);
 	padding: 1rem;
+	transition: all 0.4s ease-in-out;
 }
 
 form {
