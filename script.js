@@ -20,13 +20,8 @@ gainBtn.addEventListener("click", (e) => {
 		sum(gains, gainSumDOM);
 		console.log(gains, newGain);
 
-		// gainInputs.forEach((input) => {
-		// 	input.value = "";
-		// });
-
 		gainsDOM.innerHTML = "";
 		gains.forEach(({ id, name, amount }) => {
-			// Make new li and add to ul with value
 			const li = document.createElement("li");
 			li.classList.add("list");
 			gainsDOM.appendChild(li);
@@ -114,9 +109,24 @@ gainBtn.addEventListener("click", (e) => {
 function sum(arr, sumDOM) {
 	console.log(sumDOM);
 	sumDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
+	console.log(gainSumDOM.textContent);
+	console.log(expenseSumDOM.textContent);
 	// let amount = arr.reduce((acc, { amount }) => acc + amount, 0);
 	// let name = arr.map(({ name }) => name);
 	// arrDOM.innerHTML = `${name} - ${amount} zł`;
+	let allSum = 0;
+	if (gainSumDOM.textContent > expenseSumDOM.textContent) {
+		allSum = gainSumDOM.textContent - expenseSumDOM.textContent;
+		leftAmount.innerText = "Morty, możesz jeszcze wydać " + allSum + " złotych";
+	} else if (gainSumDOM.textContent === expenseSumDOM.textContent) {
+		leftAmount.innerText = "Bilans wynosi zero";
+	} else if (gainSumDOM.textContent < expenseSumDOM.textContent) {
+		allSum = gainSumDOM.textContent - expenseSumDOM.textContent;
+		leftAmount.innerText =
+			"Przegiąłeś Morty, bilans jest ujemny. Jesteś na minusie " +
+			allSum +
+			" złotych";
+	}
 }
 
 const expensesDOM = document.querySelector("#expenses-ul");
