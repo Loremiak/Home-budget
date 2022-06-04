@@ -18,7 +18,6 @@ gainBtn.addEventListener("click", (e) => {
 		};
 		gains.push(newGain);
 		sum(gains, gainSumDOM);
-		console.log(gains, newGain);
 
 		gainsDOM.innerHTML = "";
 		gains.forEach(({ id, name, amount }) => {
@@ -72,56 +71,35 @@ gainBtn.addEventListener("click", (e) => {
 					span.removeChild(confirmEditBtn);
 					span.appendChild(editBtn);
 					span.appendChild(deleteBtn);
-					console.log(editName.textContent);
+
 					const newName = editName.textContent;
 					const newAmount = Number(editAmount.textContent);
-					console.log(newName);
-					console.log(newAmount);
-					console.log(id);
-					console.log(gains);
+
 					gains = gains.map((gain) =>
 						gain.id === id
 							? { ...gain, name: newName, amount: newAmount }
 							: gain
 					);
-					console.log(gains);
 					sum(gains, gainSumDOM);
 				});
-				console.log(gainsDOM);
 				span.appendChild(confirmEditBtn);
 			});
 		});
-
-		let gainsAmount = gainAmount.value;
-		console.log(gainsAmount);
 	} else {
-		console.log("Błąd nazwy lub wartości");
+		return;
 	}
 });
 
-// function sumGains() {
-// 	const total = gains.reduce((acc, { amount }) => acc + amount, 0);
-// 	gainSumDOM.innerHTML = total + " zł";
-// }
-
-// sum(gains, gainsDOM);
-// sum(expenses, expensesDOM);
 function sum(arr, sumDOM) {
-	console.log(sumDOM);
 	sumDOM.innerHTML = arr.reduce((acc, { amount }) => acc + amount, 0);
-	console.log(gainSumDOM.textContent);
-	console.log(expenseSumDOM.textContent);
-	// let amount = arr.reduce((acc, { amount }) => acc + amount, 0);
-	// let name = arr.map(({ name }) => name);
-	// arrDOM.innerHTML = `${name} - ${amount} zł`;
-	let allSum = 0;
-	if (gainSumDOM.textContent > expenseSumDOM.textContent) {
-		allSum = gainSumDOM.textContent - expenseSumDOM.textContent;
+	leftAmount.innerText = "";
+	let allSum = gainSumDOM.textContent - expenseSumDOM.textContent;
+
+	if (allSum > 0) {
 		leftAmount.innerText = "Morty, możesz jeszcze wydać " + allSum + " złotych";
-	} else if (gainSumDOM.textContent === expenseSumDOM.textContent) {
+	} else if (allSum === 0) {
 		leftAmount.innerText = "Bilans wynosi zero";
-	} else if (gainSumDOM.textContent < expenseSumDOM.textContent) {
-		allSum = gainSumDOM.textContent - expenseSumDOM.textContent;
+	} else if (allSum < 0) {
 		leftAmount.innerText =
 			"Przegiąłeś Morty, bilans jest ujemny. Jesteś na minusie " +
 			allSum +
@@ -149,7 +127,6 @@ expenseBtn.addEventListener("click", (e) => {
 		};
 		expenses.push(newExpense);
 		sum(expenses, expenseSumDOM);
-		console.log(expenses, expenseSumDOM);
 
 		expensesDOM.innerHTML = "";
 
@@ -204,27 +181,19 @@ expenseBtn.addEventListener("click", (e) => {
 					span.removeChild(confirmEditBtn);
 					span.appendChild(editBtn);
 					span.appendChild(deleteBtn);
-					console.log(editName.textContent);
+
 					const newName = editName.textContent;
 					const newAmount = Number(editAmount.textContent);
-					console.log(newName);
-					console.log(newAmount);
-					console.log(id);
-					console.log(expenses);
+
 					expenses = expenses.map((expense) =>
 						expense.id === id
 							? { ...expense, name: newName, amount: newAmount }
 							: expense
 					);
-					console.log(expenses);
 					sum(expenses, expenseSumDOM);
 				});
-				console.log(expenseSumDOM);
 				span.appendChild(confirmEditBtn);
 			});
-
-			let expensesAmount = expenseAmount.value;
-			console.log(expensesAmount);
 		});
 	} else {
 		console.log("Błąd nazwy lub wartości");
