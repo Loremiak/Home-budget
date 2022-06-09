@@ -3,7 +3,6 @@ const leftAmount = document.querySelector("#amount-to-spend");
 const gainsDOM = document.querySelector("#gains-ul");
 const gainName = document.querySelector("#gain-name");
 const gainAmount = document.querySelector("#gain-amount");
-const gainInputs = document.querySelectorAll("#gain-name, #gain-amount");
 const gainBtn = document.querySelector("#gain-btn");
 const gainSumDOM = document.querySelector("#gain-sum");
 let gains = [];
@@ -25,6 +24,8 @@ gainBtn.addEventListener("click", (e) => {
 			li.classList.add("list");
 			gainsDOM.appendChild(li);
 			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł</span>`;
+			gainName.value = "";
+			gainAmount.value = "";
 
 			const span = document.createElement("span");
 			li.appendChild(span);
@@ -110,9 +111,6 @@ function sum(arr, sumDOM) {
 const expensesDOM = document.querySelector("#expenses-ul");
 const expenseName = document.querySelector("#expense-name");
 const expenseAmount = document.querySelector("#expense-amount");
-const expenseInputs = document.querySelectorAll(
-	"#expense-name, #expense-amount"
-);
 const expenseBtn = document.querySelector("#expense-btn");
 const expenseSumDOM = document.querySelector("#expense-sum");
 let expenses = [];
@@ -129,12 +127,13 @@ expenseBtn.addEventListener("click", (e) => {
 		sum(expenses, expenseSumDOM);
 
 		expensesDOM.innerHTML = "";
-
 		expenses.forEach(({ id, name, amount }) => {
 			const li = document.createElement("li");
 			li.classList.add("list");
 			expensesDOM.appendChild(li);
-			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span></span>`;
+			li.innerHTML = `<span data-id="${id}"><span data-name="${name}">${name}</span> - <span data-amount="${amount}">${amount}</span> zł</span>`;
+			expenseName.value = "";
+			expenseAmount.value = "";
 
 			const span = document.createElement("span");
 			li.appendChild(span);
