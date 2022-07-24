@@ -6,9 +6,9 @@ This project is home budget. You can control your own budget by adding gains or 
 
 Project is created with:
 
-- HTML
-- SCSS
-- JavaScript
+* HTML
+* CSS
+* JavaScript
 
 ## Setup
 
