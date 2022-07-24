@@ -1,3 +1,15 @@
-# Project-3-FC
+## General info
 
-Live demo: melodious-smakager-d0df1c.netlify.app
+This project is home budget. You can control your own budget by adding gains or expenses. You can see your current balance.
+
+## Technologies
+
+Project is created with:
+
+- HTML
+- SCSS
+- JavaScript
+
+## Setup
+
+Live demo: <a href='melodious-smakager-d0df1c.netlify.app'>melodious-smakager-d0df1c.netlify.app</a>
