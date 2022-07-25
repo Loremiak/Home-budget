@@ -7,9 +7,9 @@ This project is home budget. You can control your own budget by adding gains or 
 Project is created with:
 
 * HTML
-* CSS
+* SCSS/CSS
 * JavaScript
 
 ## Setup
 
-Live demo: <a href='melodious-smakager-d0df1c.netlify.app'>melodious-smakager-d0df1c.netlify.app</a>
+Live demo: <a href='https://melodious-smakager-d0df1c.netlify.app/'>melodious-smakager-d0df1c.netlify.app</a>
